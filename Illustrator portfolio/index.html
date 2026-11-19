@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snigdha Das — Digital Portrait Illustrator</title>
+
+  <!-- Editorial Typography: Cormorant Garamond, Inter & Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+          },
+          colors: {
+            alabaster: '#F8F1EB',
+            ink: '#392A32',
+            muted: '#7A676F',
+            hairline: '#E2D0CB',
+            studioBg: '#21171D',
+            studioInk: '#F5ECE7',
+            studioMuted: '#C7AEB8',
+            studioHairline: '#48353E',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg: #F8F1EB;
+      --surface: #EFE2DD;
+      --ink: #392A32;
+      --muted: #7A676F;
+      --border: #E2D0CB;
+      --accent: #9C5264;
+      --accent-contrast: #FFF8F5;
+    }
+
+    html.dark {
+      --bg: #21171D;
+      --surface: #2E2229;
+      --ink: #F5ECE7;
+      --muted: #C7AEB8;
+      --border: #48353E;
+      --accent: #D69AA5;
+      --accent-contrast: #2C1B22;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hairline-b {
+      border-bottom: 1px solid var(--border);
+    }
+    .hairline-t {
+      border-top: 1px solid var(--border);
+    }
+    .hairline-all {
+      border: 1px solid var(--border);
+    }
+    .surface-card {
+      background-color: var(--surface);
+    }
+    .text-muted-token {
+      color: var(--muted);
+    }
+    .text-muted-token.font-mono.uppercase {
+      color: var(--accent);
+    }
+    .text-muted-token.hover-link:hover {
+      color: var(--accent);
+    }
+    .filter-pill.active,
+    .type-pill.active {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-contrast);
+    }
+    .filter-pill {
+      border: 1px solid var(--border);
+      background-color: color-mix(in srgb, var(--surface) 45%, transparent);
+    }
+    .filter-pill:not(.active):hover {
+      border-color: var(--accent);
+      color: var(--ink);
+    }
+    .text-accent-token {
+      color: var(--accent);
+    }
+    .accent-rule {
+      background-color: var(--accent);
+    }
+    .accent-dot {
+      background-color: var(--accent);
+    }
+    .artwork-trigger {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      background-color: var(--surface);
+      box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 7%, transparent);
+      transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
+    }
+    .artwork-trigger:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px color-mix(in srgb, var(--ink) 12%, transparent);
+    }
+    .art-frame {
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Custom Subtle Magnetic Dot Cursor (Desktop Pointer Devices) */
+    @media (pointer: fine) {
+      body {
+        cursor: none;
+      }
+      a, button, input, textarea, .artwork-trigger, .cursor-pointer {
+        cursor: none !important;
+      }
+    }
+
+    #magnetic-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 9999px;
+      background-color: var(--ink);
+      color: var(--bg);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.3s ease,
+                  opacity 0.25s ease;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    #magnetic-cursor.cursor-link {
+      width: 24px;
+      height: 24px;
+      opacity: 0.35;
+    }
+
+    #magnetic-cursor.cursor-view {
+      width: 68px;
+      height: 68px;
+      opacity: 0.95;
+    }
+
+    #magnetic-cursor span {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    #magnetic-cursor.cursor-view span {
+      opacity: 1;
+    }
+
+    /* Gentle Fade-Up Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gallery Card Micro-interaction */
+    .art-frame img,
+    .art-frame svg {
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .artwork-trigger:hover .art-frame img,
+    .artwork-trigger:hover .art-frame svg {
+      transform: scale(1.025);
+    }
+
+    /* Lightbox Split Comparison Slider */
+    .split-stage {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      touch-action: none;
+    }
+    .split-overlay {
+      position: absolute;
+      inset: 0;
+      width: 50%;
+      overflow: hidden;
+    }
+    .split-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+    .split-knob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 9999px;
+      background-color: var(--ink);
+      color: var(--bg);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Minimal Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="selection:bg-ink selection:text-alabaster dark:selection:bg-studioInk dark:selection:text-studioBg">
+
+  <!-- Minimal Magnetic Cursor -->
+  <div id="magnetic-cursor" class="hidden md:flex"><span>View</span></div>
+
+  <!-- Minimal Toast Feedback -->
+  <div id="toast" class="fixed bottom-6 right-6 z-[120] pointer-events-none opacity-0 translate-y-2 transition-all duration-300">
+    <div id="toast-inner" class="px-4 py-2.5 rounded-full text-xs font-mono tracking-wide hairline-all shadow-sm" style="background-color: var(--bg); color: var(--ink);">
+      Copied
+    </div>
+  </div>
+
+  <!-- 1. CLEAN STICKY HEADER -->
+  <header class="sticky top-0 z-40 backdrop-blur-md hairline-b" style="background-color: color-mix(in srgb, var(--bg) 86%, transparent);">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 h-16 sm:h-20 flex items-center justify-between">
+      <a href="#top" class="font-serif text-xl sm:text-2xl tracking-tight font-medium hover-link">
+        Snigdha Das
+      </a>
+
+      <nav class="flex items-center gap-6 sm:gap-9 text-xs sm:text-sm tracking-wide">
+        <a href="#work" class="hover-link text-muted-token hover:text-current transition-colors">Work</a>
+        <a href="#about" class="hover-link text-muted-token hover:text-current transition-colors">About</a>
+        <a href="#contact" class="hover-link text-muted-token hover:text-current transition-colors">Contact</a>
+
+        <button id="theme-toggle" aria-label="Toggle Light/Dark Studio Theme" class="hover-link w-8 h-8 rounded-full hairline-all flex items-center justify-center text-muted-token hover:text-current transition-colors" title="Switch Studio Theme">
+          <i data-lucide="moon" class="w-3.5 h-3.5 block dark:hidden"></i>
+          <i data-lucide="sun" class="w-3.5 h-3.5 hidden dark:block"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 2. EDITORIAL HERO SECTION -->
+    <section class="max-w-6xl mx-auto px-6 sm:px-10 pt-24 pb-24 sm:pt-36 sm:pb-32 hairline-b">
+      <div class="max-w-3xl space-y-8">
+        <p class="font-mono text-[11px] sm:text-xs uppercase tracking-[0.22em] text-muted-token">
+          DIGITAL PORTRAIT ILLUSTRATOR — 2+ YEARS EXPERIENCE
+        </p>
+
+        <h1 class="font-serif text-5xl sm:text-7xl lg:text-[5.25rem] font-normal tracking-tight leading-[1.04]">
+          Snigdha Das
+        </h1>
+
+        <p class="text-lg sm:text-xl font-light leading-relaxed text-muted-token max-w-2xl">
+          Specializing in semi-realistic digital portraiture, couple illustrations, and expressive character &amp; cinema fan art painted with soft blended brushwork and emotive lighting.
+        </p>
+
+        <div class="pt-4 flex flex-wrap items-center gap-8">
+          <a href="#work" class="hover-link inline-flex items-center gap-2.5 text-xs font-mono uppercase tracking-[0.16em] pb-1.5 hairline-b hover:opacity-65 transition-opacity">
+            <span>Selected Works (04)</span>
+            <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+          </a>
+
+          <span class="inline-flex items-center gap-2 text-xs font-mono text-muted-token">
+            <span class="w-1.5 h-1.5 rounded-full accent-dot"></span>
+            Open for Custom Portrait Commissions
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SELECTED WORKS GALLERY -->
+    <section id="work" class="max-w-6xl mx-auto px-6 sm:px-10 py-24 sm:py-32 hairline-b">
+      <!-- Header & Filter Pills -->
+      <div class="reveal flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-token mb-2">Archive 2024 — 2026</p>
+          <h2 class="font-serif text-3xl sm:text-4xl font-normal tracking-tight">Selected Works</h2>
+        </div>
+
+        <!-- Horizontal Category Filter Pills -->
+        <div id="filter-bar" class="flex flex-wrap items-center gap-2">
+          <button data-filter="all" class="filter-pill active hover-link px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wide hairline-all transition-all">
+            All Works
+          </button>
+          <button data-filter="couples" class="filter-pill hover-link px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wide text-muted-token hover:text-current transition-all">
+            Couple &amp; Custom Illustrations
+          </button>
+          <button data-filter="character" class="filter-pill hover-link px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wide text-muted-token hover:text-current transition-all">
+            Character &amp; Fan Art
+          </button>
+        </div>
+      </div>
+
+      <!-- Uniform 2-Column Gallery Grid -->
+      <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 sm:gap-y-16">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- 4. CONCISE ABOUT & CAPABILITIES SECTION -->
+    <section id="about" class="max-w-6xl mx-auto px-6 sm:px-10 py-24 sm:py-32 hairline-b">
+      <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        
+        <!-- Left: Concise Bio -->
+        <div class="lg:col-span-6 space-y-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-token">About</p>
+          <h2 class="font-serif text-3xl sm:text-4xl font-normal leading-snug">
+            Capturing likeness, warmth, and quiet emotional depth through semi-realistic painting.
+          </h2>
+          <p class="text-sm sm:text-base font-light leading-relaxed text-muted-token">
+            I’m Snigdha Das, a Digital Portrait Illustrator with 2+ years of experience creating custom couple illustrations, bespoke gifts, and dramatic character fan art.
+          </p>
+          <p class="text-sm sm:text-base font-light leading-relaxed text-muted-token">
+            My style blends photographic likeness with soft painterly skin tones, crisp hair strands, and nuanced fabric folds—translating candid personal moments and iconic cinema scenes into timeless digital keepsakes.
+          </p>
+
+          <div class="pt-4">
+            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full hairline-all text-xs font-mono">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>Available for Custom Portraits &amp; Commissions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Structured Disciplines & Primary Tools -->
+        <div class="lg:col-span-6 lg:pl-8 lg:border-l" style="border-color: var(--border);">
+          <div class="space-y-10">
+            <!-- Core Disciplines -->
+            <div>
+              <h3 class="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-token mb-4">Core Disciplines</h3>
+              <ul class="divide-y" style="border-color: var(--border);">
+                <li class="py-3 flex items-center justify-between text-sm">
+                  <span>Custom Couple &amp; Family Portraits</span>
+                  <span class="font-mono text-xs text-muted-token">01</span>
+                </li>
+                <li class="py-3 flex items-center justify-between text-sm" style="border-color: var(--border);">
+                  <span>Semi-Realistic Digital Painting</span>
+                  <span class="font-mono text-xs text-muted-token">02</span>
+                </li>
+                <li class="py-3 flex items-center justify-between text-sm" style="border-color: var(--border);">
+                  <span>Cinema &amp; Pop-Culture Character Fan Art</span>
+                  <span class="font-mono text-xs text-muted-token">03</span>
+                </li>
+                <li class="py-3 flex items-center justify-between text-sm" style="border-color: var(--border);">
+                  <span>Editorial &amp; Social Avatar Commissions</span>
+                  <span class="font-mono text-xs text-muted-token">04</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Primary Tools -->
+            <div>
+              <h3 class="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-token mb-4">Primary Tools</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-mono hairline-all">Procreate</span>
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-mono hairline-all">Adobe Photoshop</span>
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-mono hairline-all">ibisPaint X</span>
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-mono hairline-all">Clip Studio Paint</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. MINIMALIST COMMISSION & CONTACT SECTION -->
+    <section id="contact" class="max-w-6xl mx-auto px-6 sm:px-10 py-24 sm:py-32">
+      <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16">
+        
+        <!-- Left: Direct Email & Social Links -->
+        <div class="lg:col-span-5 space-y-8">
+          <div>
+            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-token mb-2">Commissions &amp; Inquiries</p>
+            <h2 class="font-serif text-3xl sm:text-4xl font-normal">Commission a Portrait</h2>
+            <p class="text-sm font-light text-muted-token mt-3 leading-relaxed">
+              Looking for a custom couple illustration, anniversary gift, or semi-realistic character painting? Copy my direct email or send your reference details below.
+            </p>
+          </div>
+
+          <!-- Direct Email Copy-to-Clipboard Button -->
+          <div>
+            <button id="copy-email-btn" type="button" class="hover-link group inline-flex items-center gap-3 px-5 py-3 rounded-full hairline-all hover:opacity-75 transition-opacity">
+              <span class="font-mono text-xs sm:text-sm">hello@snigdhadas.art</span>
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-muted-token group-hover:text-current"></i>
+            </button>
+          </div>
+
+          <!-- Understated Social Links -->
+          <div class="pt-4">
+            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-token mb-3">Elsewhere</p>
+            <div class="flex flex-wrap gap-5 text-xs font-mono">
+              <a href="#work" onclick="showToast('ArtStation — @snigdhadas'); return false;" class="hover-link text-muted-token hover:text-current transition-colors">ArtStation ↗</a>
+              <a href="#work" onclick="showToast('Behance — @snigdhadas'); return false;" class="hover-link text-muted-token hover:text-current transition-colors">Behance ↗</a>
+              <a href="#work" onclick="showToast('Instagram — @snigdha.draws'); return false;" class="hover-link text-muted-token hover:text-current transition-colors">Instagram ↗</a>
+              <a href="#work" onclick="showToast('X — @snigdhadas_art'); return false;" class="hover-link text-muted-token hover:text-current transition-colors">X ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Minimal Inline Inquiry Form -->
+        <div class="lg:col-span-7">
+          <form id="inquiry-form" class="space-y-6" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="sender-name" class="block font-mono text-[11px] uppercase tracking-wider text-muted-token mb-2">Name *</label>
+                <input type="text" id="sender-name" required placeholder="Your name" class="w-full bg-transparent py-2.5 text-sm hairline-b focus:outline-none focus:border-current transition-colors" />
+              </div>
+              <div>
+                <label for="sender-email" class="block font-mono text-[11px] uppercase tracking-wider text-muted-token mb-2">Email *</label>
+                <input type="email" id="sender-email" required placeholder="you@domain.com" class="w-full bg-transparent py-2.5 text-sm hairline-b focus:outline-none focus:border-current transition-colors" />
+              </div>
+            </div>
+
+            <!-- Project Type Pill Selector -->
+            <div>
+              <label class="block font-mono text-[11px] uppercase tracking-wider text-muted-token mb-3">Commission Type</label>
+              <div id="project-type-pills" class="flex flex-wrap gap-2">
+                <button type="button" data-type="Couple Portrait" class="type-pill active hover-link px-4 py-1.5 rounded-full text-xs font-mono hairline-all transition-all">Couple Portrait</button>
+                <button type="button" data-type="Solo Portrait" class="type-pill hover-link px-4 py-1.5 rounded-full text-xs font-mono text-muted-token hover:text-current transition-all">Solo Portrait</button>
+                <button type="button" data-type="Character / Fan Art" class="type-pill hover-link px-4 py-1.5 rounded-full text-xs font-mono text-muted-token hover:text-current transition-all">Character / Fan Art</button>
+                <button type="button" data-type="Other" class="type-pill hover-link px-4 py-1.5 rounded-full text-xs font-mono text-muted-token hover:text-current transition-all">Other</button>
+              </div>
+            </div>
+
+            <div>
+              <label for="sender-message" class="block font-mono text-[11px] uppercase tracking-wider text-muted-token mb-2">Message *</label>
+              <textarea id="sender-message" rows="3" required placeholder="Tell me briefly about your project, timeline, and scope..." class="w-full bg-transparent py-2.5 text-sm hairline-b focus:outline-none focus:border-current transition-colors resize-none"></textarea>
+            </div>
+
+            <div class="pt-2 flex items-center justify-between gap-4">
+              <button type="submit" class="hover-link px-7 py-3 rounded-full text-xs font-mono uppercase tracking-[0.16em] transition-opacity hover:opacity-80" style="background-color: var(--accent); color: var(--accent-contrast);">
+                Send Inquiry
+              </button>
+              <span id="form-confirmation" class="text-xs font-mono text-emerald-600 dark:text-emerald-400 hidden">
+                ✓ Inquiry received. I’ll respond within 24h.
+              </span>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="hairline-t py-8">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-token">
+      <span>© 2026 Snigdha Das</span>
+      <span>Digital Portrait Illustration &amp; Character Art</span>
+    </div>
+  </footer>
+
+  <!-- DISTRACTION-FREE FULL-SCREEN LIGHTBOX VIEWER -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-8 backdrop-blur-xl" style="background-color: color-mix(in srgb, var(--bg) 94%, transparent);">
+    <div class="w-full max-w-6xl h-full max-h-[90vh] flex flex-col justify-between">
+      
+      <!-- Top Lightbox Bar -->
+      <div class="flex items-center justify-between pb-4 hairline-b">
+        <div class="flex items-center gap-4">
+          <span id="lb-index" class="font-mono text-xs text-muted-token">01 / 03</span>
+          <span class="text-muted-token">•</span>
+          <span id="lb-category" class="font-mono text-xs uppercase tracking-wider text-muted-token">Couple &amp; Custom Portraits</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Process / Underpainting View Mode Toggle -->
+          <div class="flex items-center rounded-full p-0.5 hairline-all text-[11px] font-mono">
+            <button id="mode-final-btn" type="button" class="hover-link px-3 py-1 rounded-full transition-colors">Final</button>
+            <button id="mode-split-btn" type="button" class="hover-link px-3 py-1 rounded-full transition-colors">Split</button>
+            <button id="mode-sketch-btn" type="button" class="hover-link px-3 py-1 rounded-full transition-colors">Sketch</button>
+          </div>
+
+          <button id="lb-close" aria-label="Close Viewer" class="hover-link w-9 h-9 rounded-full hairline-all flex items-center justify-center hover:opacity-70 transition-opacity">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Center Content: Artwork Viewer + Metadata Sidebar -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 py-6 flex-1 min-h-0 items-center">
+        
+        <!-- Artwork Frame -->
+        <div class="lg:col-span-8 h-full flex items-center justify-center min-h-[280px]">
+          <div id="split-stage" class="split-stage w-full max-h-[66vh] aspect-[4/4] rounded-sm hairline-all">
+            <div id="lb-final-layer" class="w-full h-full"></div>
+            <div id="lb-sketch-layer" class="split-overlay" style="width: 0%;">
+              <div id="lb-sketch-inner" class="w-full h-full"></div>
+            </div>
+            <div id="lb-split-line" class="split-line hidden">
+              <div class="split-knob">
+                <i data-lucide="move-horizontal" class="w-3.5 h-3.5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artwork Details -->
+        <div class="lg:col-span-4 space-y-6 overflow-y-auto max-h-full pr-1">
+          <div>
+            <h3 id="lb-title" class="font-serif text-2xl sm:text-3xl font-normal">Title</h3>
+            <p id="lb-medium" class="font-mono text-xs text-muted-token mt-1.5">Digital Painting</p>
+          </div>
+
+          <p id="lb-desc" class="text-sm font-light leading-relaxed text-muted-token">
+            Description
+          </p>
+
+          <dl class="grid grid-cols-2 gap-4 pt-4 hairline-t text-xs">
+            <div>
+              <dt class="font-mono text-[10px] uppercase tracking-wider text-muted-token">Tools</dt>
+              <dd id="lb-tools" class="mt-1 font-medium">Procreate, PS</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-[10px] uppercase tracking-wider text-muted-token">Year / Size</dt>
+              <dd id="lb-dims" class="mt-1 font-medium">2026 • 4000 × 3000 px</dd>
+            </div>
+          </dl>
+
+          <!-- Clickable Color Swatches -->
+          <div class="pt-4 hairline-t">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-muted-token mb-3">Palette (Click to copy)</p>
+            <div id="lb-swatches" class="flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Keyboard Navigation Bar -->
+      <div class="flex items-center justify-between pt-4 hairline-t text-xs font-mono text-muted-token">
+        <button id="lb-prev" type="button" class="hover-link inline-flex items-center gap-2 hover:text-current transition-colors">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Previous</span>
+        </button>
+
+        <span class="hidden sm:inline text-[11px]">Use ← → arrow keys to navigate • ESC to close</span>
+
+        <button id="lb-next" type="button" class="hover-link inline-flex items-center gap-2 hover:text-current transition-colors">
+          <span>Next</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- APPLICATION LOGIC -->
+  <script>
+    // =========================================================================
+    // 1. SNIGDHA DAS — ACTUAL PORTFOLIO ILLUSTRATIONS & CURATED METADATA
+    // =========================================================================
+    const works = [
+      {
+        id: 'work-1',
+        title: 'Alta & Lotus — A Quiet Ritual',
+        category: 'custom',
+        categoryLabel: 'Custom Illustration',
+        medium: 'Cultural Ritual Illustration',
+        tools: 'Procreate',
+        dims: '2026 • Custom Illustration',
+        frameBg: '#F6F4EF',
+        palette: ['#A90859', '#ED718A', '#744128', '#F7F1EC', '#5C8A24'],
+        description: 'A tender scene of alta being applied to the feet, framed by vivid magenta textiles, lotus flowers, and warm wooden tones.',
+        imageFile: 'project-01-alta-ritual.jpeg',
+        thumbnailHTML: `
+          <div class="w-full h-full overflow-hidden" style="background-color: #F6F4EF;">
+            <img
+              src="project-01-alta-ritual.jpeg"
+              alt="Alta & Lotus — A Quiet Ritual, custom illustration by Snigdha Das"
+              class="w-full h-full object-cover select-none"
+              style="object-position: center 56%;"
+            />
+          </div>
+        `,
+        finalHTML: `
+          <div class="w-full h-full flex items-center justify-center p-4 sm:p-6" style="background-color: #F6F4EF;">
+            <img 
+              src="project-01-alta-ritual.jpeg" 
+              alt="Alta & Lotus — A Quiet Ritual, custom illustration by Snigdha Das"
+              class="w-full h-full object-contain select-none"
+            />
+          </div>
+        `,
+        sketchHTML: `
+          <div class="w-full h-full flex items-center justify-center p-4 sm:p-6" style="background-color: #F6F4EF;">
+            <img 
+              src="project-01-alta-ritual.jpeg" 
+              alt="Monochrome value study — Alta & Lotus"
+              class="w-full h-full object-contain select-none"
+              style="filter: grayscale(100%) contrast(155%) brightness(112%);"
+            />
+          </div>
+        `
+      },
+      {
+        id: 'work-2',
+        title: 'Sidelines & Warmth (No. 44)',
+        category: 'couples',
+        categoryLabel: 'Couple Portrait',
+        medium: 'Semi-Realistic Digital Portrait',
+        tools: 'Procreate, Photoshop',
+        dims: '2026 • Custom Couple Commission',
+        frameBg: '#FFFFFF',
+        palette: ['#12386E', '#E29B34', '#A8C1D1', '#C68E73', '#231D1B'],
+        description: 'A joyful couple portrait set against a clean gallery-white background, with tender expressions and rich cobalt-and-gold hockey jerseys.',
+        imageFile: 'project-02-jersey-couple.jpeg',
+        thumbnailHTML: `
+          <div class="w-full h-full overflow-hidden" style="background-color: #FFFFFF;">
+            <img
+              src="project-02-jersey-couple.jpeg"
+              alt="Sidelines & Warmth (No. 44) — Couple Portrait by Snigdha Das"
+              class="w-full h-full object-cover select-none"
+            />
+          </div>
+        `,
+        finalHTML: `
+          <div class="w-full h-full flex items-center justify-center p-4 sm:p-6" style="background-color: #FFFFFF;">
+            <img 
+              src="project-02-jersey-couple.jpeg" 
+              alt="Sidelines & Warmth (No. 44) — Couple Portrait by Snigdha Das"
+              class="w-full h-full object-contain select-none"
+            />
+          </div>
+        `,
+        sketchHTML: `
+          <div class="w-full h-full flex items-center justify-center p-4 sm:p-6" style="background-color: #F6F4EF;">
+            <img 
+              src="project-02-jersey-couple.jpeg" 
+              alt="Monochrome value study — Sidelines & Warmth"
+              class="w-full h-full object-contain select-none"
+              style="filter: grayscale(100%) contrast(155%) brightness(112%);"
+            />
+          </div>
+        `
+      },
+      {
+        id: 'work-3',
+        title: 'Mirror Snapshot & Indigo Silk',
+        category: 'couples',
+        categoryLabel: 'Couple Portrait',
+        medium: 'Semi-Realistic Couple Illustration',
+        tools: 'Procreate, Photoshop',
+        dims: '2026 • Custom Couple Commission',
+        frameBg: '#FFFFFF',
+        palette: ['#0B0F63', '#D4C2AE', '#C48D72', '#1C1918', '#B8BCC2'],
+        description: 'A candid mirror-selfie couple illustration framed with crisp gallery-white negative space. Highlights delicate eyewear reflections, traditional jhumka earrings, and luminous royal-indigo folds.',
+        imageFile: 'project-03-mirror-couple.jpeg',
+        thumbnailHTML: `
+          <div class="w-full h-full overflow-hidden" style="background-color: #FFFFFF;">
+            <img
+              src="project-03-mirror-couple.jpeg"
+              alt="Mirror Snapshot & Indigo Silk — Couple Portrait by Snigdha Das"
+              class="w-full h-full object-cover select-none"
+              style="object-position: center 42%;"
+            />
+          </div>
+        `,
+        finalHTML: `
+          <div class="w-full h-full flex items-center justify-center pt-2 px-4 pb-0 sm:px-6" style="background-color: #FFFFFF;">
+            <img 
+              src="project-03-mirror-couple.jpeg" 
+              alt="Mirror Snapshot & Indigo Silk — Couple Portrait by Snigdha Das"
+              class="w-full h-full object-contain object-bottom select-none"
+            />
+          </div>
+        `,
+        sketchHTML: `
+          <div class="w-full h-full flex items-center justify-center pt-2 px-4 pb-0 sm:px-6" style="background-color: #F6F4EF;">
+            <img 
+              src="project-03-mirror-couple.jpeg" 
+              alt="Monochrome Value Study — Mirror Snapshot"
+              class="w-full h-full object-contain object-bottom select-none"
+              style="filter: grayscale(100%) contrast(150%) brightness(110%);"
+            />
+          </div>
+        `
+      },
+      {
+        id: 'work-4',
+        title: 'Grief in the Rain — Peter Parker',
+        category: 'character',
+        categoryLabel: 'Character & Fan Art',
+        medium: 'Cinematic Character Portrait',
+        tools: 'Procreate, Photoshop',
+        dims: '2026 • Cinema Fan Art Study',
+        frameBg: '#121C1E',
+        palette: ['#162426', '#8B1E24', '#3E271E', '#C9967B', '#DCE6E8'],
+        description: 'An emotionally charged close-up tribute to Peter Parker, built around midnight-teal shadows, glistening tear highlights, and the textures of his Spider-Man suit.',
+        imageFile: 'project-04-spider-man.jpeg',
+        thumbnailHTML: `
+          <div class="w-full h-full overflow-hidden" style="background-color: #121C1E;">
+            <img
+              src="project-04-spider-man.jpeg"
+              alt="Grief in the Rain — Spider-Man Character Art by Snigdha Das"
+              class="w-full h-full object-cover select-none"
+              style="object-position: center 40%;"
+            />
+          </div>
+        `,
+        finalHTML: `
+          <div class="w-full h-full flex items-center justify-center overflow-hidden" style="background-color: #121C1E;">
+            <img 
+              src="project-04-spider-man.jpeg" 
+              alt="Grief in the Rain — Spider-Man Character Art by Snigdha Das"
+              class="w-full h-full object-contain select-none"
+            />
+          </div>
+        `,
+        sketchHTML: `
+          <div class="w-full h-full flex items-center justify-center overflow-hidden" style="background-color: #161819;">
+            <img 
+              src="project-04-spider-man.jpeg" 
+              alt="Chiaroscuro value study — Grief in the Rain"
+              class="w-full h-full object-contain select-none"
+              style="filter: grayscale(100%) contrast(140%) brightness(105%);"
+            />
+          </div>
+        `
+      }
+    ];
+
+    // =========================================================================
+    // 2. RENDER UNIFORM GALLERY GRID & FILTERING
+    // =========================================================================
+    const galleryGrid = document.getElementById('gallery-grid');
+    let currentFilteredWorks = [...works];
+
+    function renderGallery(category = 'all') {
+      currentFilteredWorks = category === 'all'
+        ? [...works]
+        : works.filter(w => w.category === category || (category === 'couples' && w.category === 'custom'));
+
+      galleryGrid.innerHTML = currentFilteredWorks.map((work, index) => `
+        <article 
+          onclick="openLightbox(${index})"
+          class="artwork-trigger group cursor-pointer flex flex-col"
+        >
+          <div class="art-frame w-full aspect-[4/5] overflow-hidden" style="background-color: ${work.frameBg};">
+            ${work.thumbnailHTML}
+          </div>
+
+          <div class="px-5 pt-4 pb-5 grid grid-cols-[1fr_auto] items-start gap-4 h-36">
+            <div>
+              <div class="mb-1 flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-accent-token">
+                <span>${String(index + 1).padStart(2, '0')}</span>
+                <span class="h-px w-5 accent-rule"></span>
+              </div>
+              <h3 class="font-serif text-xl sm:text-2xl font-normal line-clamp-2 h-14 sm:h-16 group-hover:opacity-70 transition-opacity">
+                ${work.title}
+              </h3>
+              <p class="font-mono text-[11px] text-muted-token mt-1 line-clamp-2">
+                ${work.medium} — ${work.categoryLabel}
+              </p>
+            </div>
+            <span class="font-mono text-xs text-muted-token shrink-0">
+              ${work.dims.split('•')[0].trim()}
+            </span>
+          </div>
+        </article>
+      `).join('');
+
+      attachCursorListeners();
+    }
+
+    renderGallery('all');
+
+    // Category Filter Pills
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(p => {
+          p.classList.remove('active', 'hairline-all');
+          p.classList.add('text-muted-token');
+        });
+        pill.classList.add('active', 'hairline-all');
+        pill.classList.remove('text-muted-token');
+        renderGallery(pill.dataset.filter);
+      });
+    });
+
+    // =========================================================================
+    // 3. DISTRACTION-FREE LIGHTBOX WITH PROCESS/LINEWORK TOGGLE & KEYBOARD NAV
+    // =========================================================================
+    const lightbox = document.getElementById('lightbox');
+    const splitStage = document.getElementById('split-stage');
+    const sketchLayer = document.getElementById('lb-sketch-layer');
+    const splitLine = document.getElementById('lb-split-line');
+    const modeFinalBtn = document.getElementById('mode-final-btn');
+    const modeSplitBtn = document.getElementById('mode-split-btn');
+    const modeSketchBtn = document.getElementById('mode-sketch-btn');
+
+    let activeIndex = 0;
+    let viewMode = 'final'; // 'final' | 'split' | 'sketch'
+    let isDraggingSplit = false;
+
+    function openLightbox(index) {
+      activeIndex = index;
+      updateLightboxContent();
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightboxContent() {
+      const work = currentFilteredWorks[activeIndex];
+      if (!work) return;
+
+      document.getElementById('lb-index').textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(currentFilteredWorks.length).padStart(2, '0')}`;
+      document.getElementById('lb-category').textContent = work.categoryLabel;
+      document.getElementById('lb-title').textContent = work.title;
+      document.getElementById('lb-medium').textContent = work.medium;
+      document.getElementById('lb-desc').textContent = work.description;
+      document.getElementById('lb-tools').textContent = work.tools;
+      document.getElementById('lb-dims').textContent = work.dims;
+
+      splitStage.style.backgroundColor = work.frameBg;
+      document.getElementById('lb-final-layer').innerHTML = work.finalHTML;
+      document.getElementById('lb-sketch-inner').innerHTML = work.sketchHTML;
+
+      // Color Swatches
+      document.getElementById('lb-swatches').innerHTML = work.palette.map(hex => `
+        <button 
+          type="button" 
+          onclick="copyText('${hex}', 'Copied ${hex}')"
+          class="hover-link inline-flex items-center gap-2 px-2.5 py-1 rounded-full hairline-all text-[11px] font-mono hover:opacity-75 transition-opacity"
+        >
+          <span class="w-3 h-3 rounded-full hairline-all" style="background-color: ${hex};"></span>
+          <span>${hex}</span>
+        </button>
+      `).join('');
+
+      setLightboxViewMode(viewMode);
+      attachCursorListeners();
+    }
+
+    function setLightboxViewMode(mode) {
+      viewMode = mode;
+      [modeFinalBtn, modeSplitBtn, modeSketchBtn].forEach(btn => {
+        btn.style.backgroundColor = 'transparent';
+        btn.style.color = 'var(--muted)';
+      });
+
+      if (mode === 'final') {
+        modeFinalBtn.style.backgroundColor = 'var(--ink)';
+        modeFinalBtn.style.color = 'var(--bg)';
+        sketchLayer.style.width = '0%';
+        splitLine.classList.add('hidden');
+      } else if (mode === 'sketch') {
+        modeSketchBtn.style.backgroundColor = 'var(--ink)';
+        modeSketchBtn.style.color = 'var(--bg)';
+        sketchLayer.style.width = '100%';
+        splitLine.classList.add('hidden');
+      } else if (mode === 'split') {
+        modeSplitBtn.style.backgroundColor = 'var(--ink)';
+        modeSplitBtn.style.color = 'var(--bg)';
+        sketchLayer.style.width = '50%';
+        splitLine.style.left = '50%';
+        splitLine.classList.remove('hidden');
+      }
+    }
+
+    modeFinalBtn.addEventListener('click', () => setLightboxViewMode('final'));
+    modeSplitBtn.addEventListener('click', () => setLightboxViewMode('split'));
+    modeSketchBtn.addEventListener('click', () => setLightboxViewMode('sketch'));
+
+    // Split Slider Drag Interaction
+    function updateSplitPosition(clientX) {
+      if (viewMode !== 'split') return;
+      const rect = splitStage.getBoundingClientRect();
+      const pct = Math.max(2, Math.min(98, ((clientX - rect.left) / rect.width) * 100));
+      sketchLayer.style.width = `${pct}%`;
+      splitLine.style.left = `${pct}%`;
+    }
+
+    splitStage.addEventListener('mousedown', (e) => {
+      if (viewMode === 'split') {
+        isDraggingSplit = true;
+        updateSplitPosition(e.clientX);
+      }
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (isDraggingSplit) updateSplitPosition(e.clientX);
+    });
+    window.addEventListener('mouseup', () => {
+      isDraggingSplit = false;
+    });
+    splitStage.addEventListener('touchstart', (e) => {
+      if (viewMode === 'split') {
+        isDraggingSplit = true;
+        updateSplitPosition(e.touches[0].clientX);
+      }
+    }, { passive: true });
+    splitStage.addEventListener('touchmove', (e) => {
+      if (isDraggingSplit) updateSplitPosition(e.touches[0].clientX);
+    }, { passive: true });
+    splitStage.addEventListener('touchend', () => {
+      isDraggingSplit = false;
+    });
+
+    // Prev / Next & Keyboard Navigation
+    function showPrevWork() {
+      activeIndex = (activeIndex - 1 + currentFilteredWorks.length) % currentFilteredWorks.length;
+      updateLightboxContent();
+    }
+    function showNextWork() {
+      activeIndex = (activeIndex + 1) % currentFilteredWorks.length;
+      updateLightboxContent();
+    }
+
+    document.getElementById('lb-prev').addEventListener('click', showPrevWork);
+    document.getElementById('lb-next').addEventListener('click', showNextWork);
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrevWork();
+      if (e.key === 'ArrowRight') showNextWork();
+    });
+
+    // =========================================================================
+    // 4. CONTACT FORM, CLIPBOARD & TOAST FEEDBACK
+    // =========================================================================
+    let selectedProjectType = 'Couple Portrait';
+
+    document.querySelectorAll('.type-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.type-pill').forEach(p => {
+          p.classList.remove('active', 'hairline-all');
+          p.classList.add('text-muted-token');
+        });
+        pill.classList.add('active', 'hairline-all');
+        pill.classList.remove('text-muted-token');
+        selectedProjectType = pill.dataset.type;
+      });
+    });
+
+    function copyText(text, label) {
+      const temp = document.createElement('input');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast(label || `Copied ${text}`);
+    }
+
+    document.getElementById('copy-email-btn').addEventListener('click', () => {
+      copyText('hello@snigdhadas.art', 'Copied hello@snigdhadas.art');
+    });
+
+    document.getElementById('inquiry-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('sender-name').value.trim();
+      const email = document.getElementById('sender-email').value.trim();
+      const msg = document.getElementById('sender-message').value.trim();
+
+      if (!name || !email || !email.includes('@') || !msg) {
+        showToast('Please fill in your name, email, and message.');
+        return;
+      }
+
+      const conf = document.getElementById('form-confirmation');
+      conf.classList.remove('hidden');
+      showToast(`Inquiry sent (${selectedProjectType})`);
+      e.target.reset();
+      setTimeout(() => conf.classList.add('hidden'), 5000);
+    });
+
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-inner').textContent = message;
+      toast.classList.remove('opacity-0', 'translate-y-2');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+      }, 2600);
+    }
+
+    // =========================================================================
+    // 5. THEME TOGGLE, SUBTLE MAGNETIC CURSOR & SCROLL REVEAL
+    // =========================================================================
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      showToast(isDark ? 'Dark Studio Mode' : 'Alabaster Paper Mode');
+    });
+
+    // Subtle Magnetic Dot Cursor
+    const cursorEl = document.getElementById('magnetic-cursor');
+    let mouseX = -100, mouseY = -100, curX = -100, curY = -100;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateCursor() {
+      curX += (mouseX - curX) * 0.22;
+      curY += (mouseY - curY) * 0.22;
+      cursorEl.style.left = `${curX}px`;
+      cursorEl.style.top = `${curY}px`;
+      requestAnimationFrame(animateCursor);
+    }
+
+    function attachCursorListeners() {
+      document.querySelectorAll('.artwork-trigger').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursorEl.classList.remove('cursor-link');
+          cursorEl.classList.add('cursor-view');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorEl.classList.remove('cursor-view');
+        });
+      });
+
+      document.querySelectorAll('.hover-link').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          if (!cursorEl.classList.contains('cursor-view')) {
+            cursorEl.classList.add('cursor-link');
+          }
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorEl.classList.remove('cursor-link');
+        });
+      });
+    }
+
+    // Gentle Scroll Reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    window.onload = function () {
+      lucide.createIcons();
+      animateCursor();
+      attachCursorListeners();
+    };
+  </script>
+</body>
+</html>
